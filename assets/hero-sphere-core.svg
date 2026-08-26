@@ -1,0 +1,12 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="700" height="700" viewBox="0 0 700 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+<circle id="Sphere Core" cx="350" cy="350" r="350" fill="url(#paint0_linear_0_28)"/>
+<defs>
+<linearGradient id="paint0_linear_0_28" x1="106.029" y1="104.485" x2="609.412" y2="597.059" gradientUnits="userSpaceOnUse">
+<stop offset="0.000100017" stop-color="#5F2A1D"/>
+<stop offset="0.168269" stop-color="#291814"/>
+<stop offset="0.403846" stop-color="#121110"/>
+<stop offset="0.778846" stop-color="#121110"/>
+<stop offset="1" stop-color="#241E1D"/>
+</linearGradient>
+</defs>
+</svg>

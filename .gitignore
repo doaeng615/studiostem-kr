@@ -1,0 +1,7 @@
+.DS_Store
+
+# Elice DigitalBaeum OTF is a personally-licensed commercial font.
+# Not redistributed publicly — the site falls back to Pretendard for headings
+# until a proper web-font license is set up. Keep the local .otf files for
+# your own dev machine; they're not needed for the deployed site to work.
+assets/fonts/
