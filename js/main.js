@@ -141,7 +141,7 @@ if (nav) {
     }, SLIDE_DURATION);
   }
 
-  const AUTO_ADVANCE_MS = 5000;
+  const AUTO_ADVANCE_MS = 4000;
   let autoTimer = null;
 
   function stopAuto() {
@@ -168,8 +168,56 @@ if (nav) {
     startAuto();
   });
 
-  stage.addEventListener("mouseenter", stopAuto);
-  stage.addEventListener("mouseleave", startAuto);
+  // Pause only while actively pressed/held (not on plain hover)
+  stage.addEventListener("pointerdown", (e) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    stopAuto();
+  });
+  stage.addEventListener("pointerup", startAuto);
+  stage.addEventListener("pointercancel", startAuto);
+
+  // Swipe / drag to navigate
+  const SWIPE_THRESHOLD = 40;
+  let dragStartX = null;
+  let dragActive = false;
+
+  stage.addEventListener("pointerdown", (e) => {
+    if (e.pointerType === "mouse" && e.button !== 0) return;
+    dragStartX = e.clientX;
+    dragActive = true;
+  });
+  stage.addEventListener("pointermove", (e) => {
+    if (!dragActive || dragStartX === null) return;
+    const delta = e.clientX - dragStartX;
+    if (Math.abs(delta) > 6) {
+      card.style.transition = "none";
+      card.style.setProperty("--slide", delta * 0.4 + "px");
+    }
+  });
+  function endDrag(e) {
+    if (!dragActive || dragStartX === null) return;
+    const delta = e.clientX - dragStartX;
+    dragActive = false;
+    dragStartX = null;
+    card.style.transition = "";
+
+    if (Math.abs(delta) > SWIPE_THRESHOLD) {
+      const dir = delta < 0 ? "next" : "prev";
+      const nextIndex = dir === "next" ? (index + 1) % reviews.length : (index - 1 + reviews.length) % reviews.length;
+      card.style.setProperty("--slide", "0px");
+      goTo(nextIndex, dir);
+      startAuto();
+    } else {
+      card.style.setProperty("--slide", "0px");
+    }
+  }
+  stage.addEventListener("pointerup", endDrag);
+  stage.addEventListener("pointercancel", () => {
+    dragActive = false;
+    dragStartX = null;
+    card.style.transition = "";
+    card.style.setProperty("--slide", "0px");
+  });
 
   render();
   startAuto();

@@ -625,6 +625,12 @@
 .reviews__stage {
   position: relative;
   height: 320px;
+  touch-action: pan-y;
+  user-select: none;
+  cursor: grab;
+}
+.reviews__stage:active {
+  cursor: grabbing;
 }
 .reviews__stage::before {
   content: "";
@@ -740,6 +746,7 @@
   border-top: 1px solid var(--color-border-default);
 }
 .process__step {
+  position: relative;
   flex: 1 1 0;
   min-width: 0;
   display: flex;
@@ -748,11 +755,15 @@
   gap: 24px;
   padding: 28px 28px 0;
 }
-.process__step:first-child {
-  padding-left: 0;
-  border-left: none;
+.process__step::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  pointer-events: none;
 }
-.process__step:not(:first-child) {
+.process__step:not(:first-child)::before {
   border-left: 1px dashed var(--color-border-default);
 }
 .process__badge {
@@ -1231,6 +1242,8 @@
    ====================================================================== */
 
 @media (max-width: 1024px) {
+  .br-lg { display: none; }
+
   /* ---- Global section rhythm ---- */
   .hero { padding: 140px 0 72px; }
   .problem,
@@ -1244,7 +1257,9 @@
   .services__inner,
   .work__inner { padding-left: 24px; padding-right: 24px; }
   .reviews__inner,
-  .faq__inner { padding-left: 24px; padding-right: 24px; }
+  .faq__inner,
+  .contact__inner,
+  .process__inner { padding-left: 24px; padding-right: 24px; }
 
   /* ---- Hero: hide side stat columns, stack CTA row ---- */
   .hero__side-col { display: none; }
@@ -1268,7 +1283,7 @@
   .hero__ring--right { transform: translateX(calc(-50% + 481px)); }
 
   /* ---- Problem & Solution: single column ---- */
-  .problem__rows { flex-direction: column; }
+  .problem__rows { flex-direction: column; align-items: stretch; }
   .problem__icon-area { height: 220px; }
   .problem__icon-area--sm { height: 160px; }
 
@@ -1276,9 +1291,18 @@
   .services__row { flex-direction: column; }
   .services__panel,
   .services__tabs { width: 100%; }
+  .services__tabs {
+    flex-direction: row;
+    flex-wrap: wrap;
+  }
+  .services__tab {
+    flex: 1 1 calc(50% - 8px);
+    width: auto;
+    min-width: 260px;
+  }
 
   /* ---- Selected Work: cards stack, wide card unaffected ---- */
-  .work__row { flex-direction: column; }
+  .work__row { flex-direction: column; align-items: stretch; }
   .project-card { flex-basis: 100% !important; }
 
   /* ---- Reviews: hide ghost bleed text, card fills width ---- */
@@ -1295,14 +1319,16 @@
     flex: 1 1 50%;
     min-width: 260px;
     border-top: 1px solid var(--color-border-default);
+    padding-bottom: 28px;
   }
-  .process__step:nth-child(odd) { padding-left: 0; border-left: none; }
-  .process__step:nth-child(even) { border-left: 1px dashed var(--color-border-default); }
+  .process__step::before { border-left: none; }
+  .process__step:nth-child(even)::before { border-left: 1px dashed var(--color-border-default); }
 
   /* ---- Contact: stack channels above form ---- */
   .contact__inner { flex-direction: column; gap: 48px; }
   .contact__channels { width: 100%; padding: 0; }
   .contact__divider { display: none; }
+  .contact__social { display: none; }
   .contact__checkbox-groups { flex-direction: column; gap: 28px; }
 
   /* ---- Footer stays row at tablet width ---- */
@@ -1323,7 +1349,9 @@
   .services__inner,
   .work__inner,
   .reviews__inner,
-  .faq__inner { padding-left: 20px; padding-right: 20px; }
+  .faq__inner,
+  .contact__inner,
+  .process__inner { padding-left: 20px; padding-right: 20px; }
 
   .section-heading__title { font-size: 28px; }
   .section-heading__desc { font-size: 14px; }
@@ -1335,7 +1363,6 @@
   .hero__cta-pill { height: auto; min-height: 56px; padding-top: 12px; padding-bottom: 12px; }
   .hero__cta-pill--primary,
   .hero__cta-pill--secondary { padding-left: 20px; padding-right: 20px; }
-  .hero__cta-pill--primary .hero__icon-circles-img { display: none; }
   .hero__cta-pill-text { font-size: 14px; white-space: normal; text-align: left; }
   .hero__arrow-icon { width: 34px; height: 34px; }
   .hero__sphere { width: 260px; height: 260px; }
@@ -1351,9 +1378,12 @@
   /* ---- Services ---- */
   .services__panel { padding: 28px 24px; }
   .services__panel-title { font-size: 22px; }
+  .services__tabs { flex-direction: column; flex-wrap: nowrap; }
+  .services__tab { flex: none; width: 100%; min-width: 0; }
 
   /* ---- Selected Work ---- */
   .project-card__info { padding: 20px; }
+  .project-card__media { height: 200px; }
 
   /* ---- Reviews ---- */
   .reviews__quote { font-size: 17px; }
@@ -1364,8 +1394,8 @@
     flex: 1 1 auto;
     width: 100%;
     padding-left: 0 !important;
-    border-left: none !important;
   }
+  .process__step::before { display: none; }
   .process__step:not(:first-child) {
     border-top: 1px dashed var(--color-border-default);
     padding-top: 28px;
