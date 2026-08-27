@@ -199,6 +199,7 @@
 .problem__inner {
   max-width: var(--content-max);
   width: 100%;
+  padding: 0 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -315,6 +316,7 @@
 .services__inner {
   max-width: var(--content-max);
   width: 100%;
+  padding: 0 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -467,6 +469,7 @@
 .work__inner {
   max-width: var(--content-max);
   width: 100%;
+  padding: 0 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -578,6 +581,7 @@
 .reviews__inner {
   max-width: var(--content-max);
   margin: 0 auto;
+  padding: 0 24px;
   display: flex;
   flex-direction: column;
   gap: 72px;
@@ -730,6 +734,7 @@
 .process__inner {
   max-width: var(--content-max);
   width: 100%;
+  padding: 0 24px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -970,6 +975,7 @@
 .contact__inner {
   max-width: var(--content-max);
   width: 100%;
+  padding: 0 24px;
   display: flex;
   align-items: stretch;
 }
@@ -1321,7 +1327,7 @@
     border-top: 1px solid var(--color-border-default);
     padding-bottom: 28px;
   }
-  .process__step::before { border-left: none; }
+  .process__step:not(:first-child)::before { border-left: none; }
   .process__step:nth-child(even)::before { border-left: 1px dashed var(--color-border-default); }
 
   /* ---- Contact: stack channels above form ---- */
