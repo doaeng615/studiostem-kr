@@ -149,10 +149,12 @@
   border: 1px solid var(--color-border-default);
   color: var(--color-text-primary);
 }
-.icon-btn--outline:hover {
-  background: var(--color-accent-primary);
-  color: var(--color-text-on-accent);
-  border-color: var(--color-accent-primary);
+@media (hover: hover) and (pointer: fine) {
+  .icon-btn--outline:hover {
+    background: var(--color-accent-primary);
+    color: var(--color-text-on-accent);
+    border-color: var(--color-accent-primary);
+  }
 }
 
 /* ============ Tag / Pill ============ */

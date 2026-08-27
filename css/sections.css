@@ -296,11 +296,27 @@
   background: var(--color-text-on-accent);
   flex-shrink: 0;
 }
+.problem__answer-title {
+  font-family: var(--font-title-kr);
+  font-weight: 700;
+  font-size: 22px;
+  line-height: 1.35;
+  color: var(--color-text-on-accent);
+  margin: 0;
+}
 .problem__answer-body {
   font-family: var(--font-kr);
   font-weight: 500;
   font-size: 14px;
   line-height: 1.56;
+  color: var(--color-text-on-accent);
+  margin: 0;
+}
+.problem__answer-tags {
+  font-family: var(--font-kr);
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 1.5;
   color: var(--color-text-on-accent);
   margin: 0;
 }
@@ -582,16 +598,15 @@
   max-width: var(--content-max);
   margin: 0 auto;
   padding: 0 24px;
-  display: flex;
-  flex-direction: column;
-  gap: 72px;
-}
-.reviews__header {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-areas: "heading controls" "stage stage";
+  align-items: end;
+  row-gap: 72px;
+  column-gap: 24px;
 }
 .reviews__heading {
+  grid-area: heading;
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -609,6 +624,7 @@
   color: var(--color-text-secondary);
 }
 .reviews__controls {
+  grid-area: controls;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -627,6 +643,7 @@
 }
 
 .reviews__stage {
+  grid-area: stage;
   position: relative;
   height: 320px;
   touch-action: pan-y;
@@ -1290,6 +1307,7 @@
 
   /* ---- Problem & Solution: single column ---- */
   .problem__rows { flex-direction: column; align-items: stretch; }
+  .problem__col { width: 100%; max-width: 480px; margin: 0 auto; }
   .problem__icon-area { height: 220px; }
   .problem__icon-area--sm { height: 160px; }
 
@@ -1311,10 +1329,18 @@
   .work__row { flex-direction: column; align-items: stretch; }
   .project-card { flex-basis: 100% !important; }
 
-  /* ---- Reviews: hide ghost bleed text, card fills width ---- */
+  /* ---- Reviews: hide ghost bleed text, card fills width, centered stacked header ---- */
   .reviews__ghost { display: none; }
   .reviews__card { width: 100%; max-width: 560px; }
   .reviews__stage { height: auto; min-height: 320px; }
+  .reviews__inner {
+    grid-template-columns: 1fr;
+    grid-template-areas: "heading" "stage" "controls";
+    row-gap: 40px;
+  }
+  .reviews__heading { align-items: center; text-align: center; }
+  .reviews__counter { display: none; }
+  .reviews__controls { align-items: center; justify-self: center; }
 
   /* ---- Process: 2x2 grid ---- */
   .process__track {
