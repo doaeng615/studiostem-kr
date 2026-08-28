@@ -1,1 +1,6 @@
 .DS_Store
+
+# Claude Code plugin/skill scaffolding — not part of the site, don't publish
+.agents/
+.claude/skills/
+skills-lock.json
