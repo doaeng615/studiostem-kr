@@ -1126,7 +1126,8 @@
   font-family: var(--font-title-kr);
 }
 .contact__field-input--textarea {
-  resize: vertical;
+  resize: none;
+  overflow: hidden;
   min-height: 44px;
   font-family: var(--font-title-kr);
 }

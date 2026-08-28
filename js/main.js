@@ -238,6 +238,19 @@ if (nav) {
   });
 })();
 
+// ---- Auto-growing textareas ----
+(function initAutosizeTextareas() {
+  const textareas = document.querySelectorAll("textarea.contact__field-input--textarea");
+  textareas.forEach((el) => {
+    const resize = () => {
+      el.style.height = "auto";
+      el.style.height = el.scrollHeight + "px";
+    };
+    el.addEventListener("input", resize);
+    resize();
+  });
+})();
+
 // ---- Contact form ----
 (function initContactForm() {
   const form = document.getElementById("contactForm");
@@ -265,6 +278,9 @@ if (nav) {
         }
         submitBtn.textContent = "문의가 접수되었습니다";
         form.reset();
+        form.querySelectorAll("textarea.contact__field-input--textarea").forEach((el) => {
+          el.style.height = "auto";
+        });
         window.setTimeout(() => {
           submitBtn.textContent = originalText;
           submitBtn.disabled = false;
