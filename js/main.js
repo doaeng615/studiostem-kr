@@ -82,7 +82,7 @@ if (nav) {
       tag: "Identity Refresh",
       quote:
         "오래된 브랜드라 어디서부터 손대야 할지 막막했는데, 기존 자산을 존중하면서도 지금 시대에 맞게 다듬어주셔서 놀랐습니다. 직원들도 새 로고를 자랑스러워해요.",
-      source: "주흥 브랜드 리뉴얼 · Identity Refresh 후기",
+      source: "H 바 리뉴얼 · Identity Refresh 후기",
     },
   ];
 
