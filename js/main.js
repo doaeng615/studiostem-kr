@@ -243,22 +243,41 @@ if (nav) {
   const form = document.getElementById("contactForm");
   if (!form) return;
 
-  form.addEventListener("submit", (e) => {
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
-
-    if (typeof gtag === "function") {
-      gtag("event", "generate_lead", { form_id: "contact" });
-    }
 
     const submitBtn = form.querySelector(".contact__submit");
     const originalText = submitBtn.textContent;
-    submitBtn.textContent = "문의가 접수되었습니다";
     submitBtn.disabled = true;
+    submitBtn.textContent = "보내는 중...";
 
-    window.setTimeout(() => {
-      submitBtn.textContent = originalText;
+    try {
+      const res = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(form),
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        if (typeof gtag === "function") {
+          gtag("event", "generate_lead", { form_id: "contact" });
+        }
+        submitBtn.textContent = "문의가 접수되었습니다";
+        form.reset();
+        window.setTimeout(() => {
+          submitBtn.textContent = originalText;
+          submitBtn.disabled = false;
+        }, 3000);
+      } else {
+        throw new Error(result.message || "submit failed");
+      }
+    } catch (err) {
+      submitBtn.textContent = "전송 실패, 다시 시도해주세요";
       submitBtn.disabled = false;
-      form.reset();
-    }, 3000);
+      window.setTimeout(() => {
+        submitBtn.textContent = originalText;
+      }, 3000);
+    }
   });
 })();
