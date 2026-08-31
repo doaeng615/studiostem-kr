@@ -1133,12 +1133,14 @@
 }
 .contact__checkbox-groups {
   display: flex;
-  gap: 120px;
+  gap: 60px;
 }
 .contact__checkbox-group {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  flex: 1 1 0;
+  min-width: 0;
 }
 .contact__checkbox-label {
   font-size: 13px;
@@ -1150,11 +1152,13 @@
 .contact__checkbox-grid {
   display: flex;
   gap: 40px;
+  min-width: 0;
 }
 .contact__checkbox-col {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  min-width: 0;
 }
 .contact__checkbox {
   display: flex;
@@ -1164,7 +1168,6 @@
   font-size: 14px;
   color: var(--color-text-on-accent);
   cursor: pointer;
-  white-space: nowrap;
 }
 .contact__checkbox input {
   appearance: none;
