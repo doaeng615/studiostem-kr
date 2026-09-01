@@ -1151,7 +1151,8 @@
 }
 .contact__checkbox-grid {
   display: flex;
-  gap: 40px;
+  flex-direction: column;
+  gap: 12px;
   min-width: 0;
 }
 .contact__checkbox-col {
