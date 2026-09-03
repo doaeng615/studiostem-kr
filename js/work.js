@@ -24,7 +24,7 @@
       (post, i) => `
     <a href="/work-post.html?slug=${encodeURIComponent(post.slug)}" class="portfolio-card">
       <div class="portfolio-card__media">
-        ${post.thumbnail_url ? `<img src="${escapeAttr(post.thumbnail_url)}" alt="${escapeAttr(post.title)} 썸네일" loading="lazy" />` : ""}
+        ${post.thumbnail_url ? `<img src="${escapeAttr(post.thumbnail_url)}" alt="${escapeAttr(post.title)} 썸네일" loading="lazy" />` : `<p class="portfolio-card__placeholder">PLACEHOLDER IMAGE</p>`}
         ${post.badge ? `<span class="portfolio-card__badge">${escapeHtml(post.badge)}</span>` : ""}
       </div>
       <div class="portfolio-card__info">
@@ -34,7 +34,7 @@
         </div>
         ${post.problem ? `<div><p class="portfolio-card__block-label">PROBLEM</p><p class="portfolio-card__block-body">${escapeHtml(post.problem)}</p></div>` : ""}
         ${post.direction ? `<div><p class="portfolio-card__block-label">DIRECTION</p><p class="portfolio-card__block-body">${escapeHtml(post.direction)}</p></div>` : ""}
-        ${post.output ? `<div><p class="portfolio-card__block-label">OUTPUT</p><p class="portfolio-card__block-body">${escapeHtml(post.output)}</p></div>` : ""}
+        ${post.output ? `<div><p class="portfolio-card__block-label">OUTPUT</p><p class="portfolio-card__output">${escapeHtml(post.output)}</p></div>` : ""}
       </div>
     </a>
   `
