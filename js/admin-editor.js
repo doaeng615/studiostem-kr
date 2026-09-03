@@ -52,7 +52,6 @@
   const templates = {
     text: document.getElementById("blockTextTpl"),
     image: document.getElementById("blockImageTpl"),
-    pdf: document.getElementById("blockPdfTpl"),
     youtube: document.getElementById("blockYoutubeTpl"),
   };
 
@@ -120,24 +119,6 @@
       });
     }
 
-    if (type === "pdf") {
-      const statusEl = node.querySelector("[data-status]");
-      const uploadEl = node.querySelector("[data-upload]");
-      if (node._data.url) statusEl.textContent = "업로드된 파일: " + (node._data.filename || "PDF");
-      uploadEl.addEventListener("change", async () => {
-        const file = uploadEl.files[0];
-        if (!file) return;
-        statusEl.textContent = "업로드 중...";
-        try {
-          node._data.url = await uploadFile(file, "portfolio-media");
-          node._data.filename = file.name;
-          statusEl.textContent = "업로드 완료: " + file.name;
-        } catch (err) {
-          statusEl.textContent = "업로드 실패: " + err.message;
-        }
-      });
-    }
-
     if (type === "youtube") {
       const urlEl = node.querySelector('[data-field="url"]');
       urlEl.value = node._data.url || "";
@@ -165,9 +146,6 @@
       }
       if (type === "image") {
         return { type: "image", url: node._data.url || "", alt: node.querySelector('[data-field="alt"]').value };
-      }
-      if (type === "pdf") {
-        return { type: "pdf", url: node._data.url || "", filename: node._data.filename || "" };
       }
       if (type === "youtube") {
         return { type: "youtube", url: node.querySelector('[data-field="url"]').value, videoId: node._data.videoId || extractYoutubeId(node.querySelector('[data-field="url"]').value) };
@@ -197,7 +175,10 @@
         els.thumbPreview.style.display = "block";
         els.thumbLabel.style.display = "none";
       }
-      (post.content || []).forEach((block) => addBlock(block.type, block));
+      (post.content || []).forEach((block) => {
+        if (!templates[block.type]) return; // skip legacy/unsupported block types (e.g. removed "pdf")
+        addBlock(block.type, block);
+      });
     }
   }
 

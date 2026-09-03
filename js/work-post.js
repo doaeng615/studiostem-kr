@@ -65,8 +65,6 @@ function renderBlock(block) {
       return `<p class="post-block--text" data-size="${escapeAttr(block.size || "md")}" data-color="${escapeAttr(block.color || "white")}" style="font-weight:${Number(block.weight) || 400}">${escapeHtml(block.text || "")}</p>`;
     case "image":
       return `<div class="post-block--image"><img src="${escapeAttr(block.url)}" alt="${escapeAttr(block.alt || "")}" loading="lazy" /></div>`;
-    case "pdf":
-      return `<div class="post-block--pdf"><iframe src="${escapeAttr(block.url)}" title="${escapeAttr(block.filename || "PDF")}"></iframe><a href="${escapeAttr(block.url)}" target="_blank" rel="noopener">PDF 새 창에서 열기 / 다운로드 ↗</a></div>`;
     case "youtube":
       return block.videoId
         ? `<div class="post-block--youtube"><iframe src="https://www.youtube.com/embed/${escapeAttr(block.videoId)}" title="YouTube video" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
