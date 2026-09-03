@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>작업 사례 관리 | Studio Stem</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="../css/tokens.css?v=43" />
+<link rel="stylesheet" href="../css/admin.css?v=43" />
+</head>
+<body class="admin-body">
+  <nav class="admin-nav">
+    <a href="dashboard.html" class="admin-nav__logo">
+      <img src="../assets/logo-full.svg" alt="Studio Stem" />
+      <span>관리자</span>
+    </a>
+    <div class="admin-nav__right">
+      <span class="admin-nav__email" id="userEmail"></span>
+      <button class="admin-btn admin-btn--ghost admin-btn--sm" id="logoutBtn">로그아웃</button>
+    </div>
+  </nav>
+
+  <main class="admin-main">
+    <div class="admin-header-row">
+      <h1>작업 사례 관리</h1>
+      <a href="editor.html" class="admin-btn admin-btn--primary">+ 새 글 작성</a>
+    </div>
+
+    <div class="admin-post-list" id="postList">
+      <p class="admin-hint">불러오는 중...</p>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="../js/supabase-config.js?v=43"></script>
+  <script src="../js/admin-auth.js?v=43"></script>
+  <script src="../js/admin-dashboard.js?v=43"></script>
+</body>
+</html>

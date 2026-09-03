@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>글 작성 | Studio Stem 관리자</title>
+<meta name="robots" content="noindex, nofollow" />
+<link rel="icon" href="../assets/favicon.svg" type="image/svg+xml" />
+<link rel="stylesheet" href="../css/tokens.css?v=43" />
+<link rel="stylesheet" href="../css/admin.css?v=43" />
+</head>
+<body class="admin-body">
+  <nav class="admin-nav">
+    <a href="dashboard.html" class="admin-nav__logo">
+      <img src="../assets/logo-full.svg" alt="Studio Stem" />
+      <span>← 목록으로</span>
+    </a>
+    <div class="admin-nav__right">
+      <span class="admin-nav__email" id="userEmail"></span>
+      <button class="admin-btn admin-btn--ghost admin-btn--sm" id="logoutBtn">로그아웃</button>
+    </div>
+  </nav>
+
+  <main class="admin-main">
+    <div class="admin-editor-grid">
+      <div class="admin-field">
+        <label>썸네일 (16:9)</label>
+        <label class="admin-thumb-upload" id="thumbDropzone">
+          <img id="thumbPreview" style="display:none;" />
+          <span id="thumbLabel">클릭해서 이미지 업로드</span>
+          <input type="file" id="thumbInput" accept="image/png,image/jpeg,image/gif,image/webp" style="display:none;" />
+        </label>
+      </div>
+
+      <div class="admin-block-row">
+        <div class="admin-field">
+          <label for="fTitle">제목</label>
+          <input type="text" id="fTitle" placeholder="예: BLACK BOWL" />
+        </div>
+        <div class="admin-field">
+          <label for="fSlug">URL 슬러그</label>
+          <input type="text" id="fSlug" placeholder="예: black-bowl" />
+        </div>
+      </div>
+
+      <div class="admin-block-row">
+        <div class="admin-field">
+          <label for="fIndustry">업종</label>
+          <input type="text" id="fIndustry" placeholder="예: F&B · Greek Yogurt Bar" />
+        </div>
+        <div class="admin-field">
+          <label for="fBadge">서비스 배지</label>
+          <input type="text" id="fBadge" placeholder="예: BRAND START" />
+        </div>
+      </div>
+
+      <div class="admin-field">
+        <label for="fProblem">PROBLEM</label>
+        <textarea id="fProblem"></textarea>
+      </div>
+      <div class="admin-field">
+        <label for="fDirection">DIRECTION</label>
+        <textarea id="fDirection"></textarea>
+      </div>
+      <div class="admin-field">
+        <label for="fOutput">OUTPUT</label>
+        <input type="text" id="fOutput" placeholder="예: Brand Identity · Package · Menu" />
+      </div>
+
+      <div>
+        <label style="display:block; margin-bottom:12px; font-size:13px; color:var(--color-text-secondary);">상세 본문</label>
+        <div class="admin-block-list" id="blockList"></div>
+        <div class="admin-add-block-row" style="margin-top:12px;">
+          <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" data-add="text">+ 텍스트</button>
+          <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" data-add="image">+ 이미지</button>
+          <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" data-add="pdf">+ PDF</button>
+          <button type="button" class="admin-btn admin-btn--ghost admin-btn--sm" data-add="youtube">+ 유튜브 링크</button>
+        </div>
+      </div>
+
+      <p class="admin-error" id="editorError" style="display:none;"></p>
+
+      <div style="display:flex; gap:12px;">
+        <button type="button" class="admin-btn admin-btn--ghost" id="saveDraftBtn">임시저장</button>
+        <button type="button" class="admin-btn admin-btn--primary" id="publishBtn">발행하기</button>
+      </div>
+    </div>
+  </main>
+
+  <template id="blockTextTpl">
+    <div class="admin-block" data-type="text">
+      <div class="admin-block__head">
+        <span class="admin-block__type">텍스트</span>
+        <div class="admin-block__controls">
+          <button type="button" data-up>↑</button>
+          <button type="button" data-down>↓</button>
+          <button type="button" data-remove>✕</button>
+        </div>
+      </div>
+      <div class="admin-field">
+        <textarea data-field="text" placeholder="본문 내용"></textarea>
+      </div>
+      <div class="admin-block-row">
+        <div class="admin-field">
+          <label>크기</label>
+          <select data-field="size">
+            <option value="sm">작게</option>
+            <option value="md" selected>보통</option>
+            <option value="lg">크게</option>
+          </select>
+        </div>
+        <div class="admin-field">
+          <label>두께</label>
+          <select data-field="weight">
+            <option value="400" selected>400 (Regular)</option>
+            <option value="500">500 (Medium)</option>
+            <option value="600">600 (SemiBold)</option>
+            <option value="700">700 (Bold)</option>
+          </select>
+        </div>
+        <div class="admin-field">
+          <label>색상</label>
+          <div class="admin-swatch-row">
+            <span class="admin-swatch" data-color="white" data-active="true" style="background:#f7f3ee;"></span>
+            <span class="admin-swatch" data-color="orange" style="background:#ff5111;"></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </template>
+
+  <template id="blockImageTpl">
+    <div class="admin-block" data-type="image">
+      <div class="admin-block__head">
+        <span class="admin-block__type">이미지</span>
+        <div class="admin-block__controls">
+          <button type="button" data-up>↑</button>
+          <button type="button" data-down>↓</button>
+          <button type="button" data-remove>✕</button>
+        </div>
+      </div>
+      <img class="admin-block-preview" data-preview style="display:none;" />
+      <div class="admin-field">
+        <label>이미지 파일 (PNG/JPG/GIF)</label>
+        <input type="file" accept="image/png,image/jpeg,image/gif,image/webp" data-upload />
+        <p class="admin-hint" data-status></p>
+      </div>
+      <div class="admin-field">
+        <label>대체 텍스트 (alt, 선택)</label>
+        <input type="text" data-field="alt" />
+      </div>
+    </div>
+  </template>
+
+  <template id="blockPdfTpl">
+    <div class="admin-block" data-type="pdf">
+      <div class="admin-block__head">
+        <span class="admin-block__type">PDF</span>
+        <div class="admin-block__controls">
+          <button type="button" data-up>↑</button>
+          <button type="button" data-down>↓</button>
+          <button type="button" data-remove>✕</button>
+        </div>
+      </div>
+      <div class="admin-field">
+        <label>PDF 파일</label>
+        <input type="file" accept="application/pdf" data-upload />
+        <p class="admin-hint" data-status></p>
+      </div>
+    </div>
+  </template>
+
+  <template id="blockYoutubeTpl">
+    <div class="admin-block" data-type="youtube">
+      <div class="admin-block__head">
+        <span class="admin-block__type">유튜브</span>
+        <div class="admin-block__controls">
+          <button type="button" data-up>↑</button>
+          <button type="button" data-down>↓</button>
+          <button type="button" data-remove>✕</button>
+        </div>
+      </div>
+      <div class="admin-field">
+        <label>유튜브 링크</label>
+        <input type="url" data-field="url" placeholder="https://www.youtube.com/watch?v=..." />
+      </div>
+    </div>
+  </template>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="../js/supabase-config.js?v=43"></script>
+  <script src="../js/admin-auth.js?v=43"></script>
+  <script src="../js/admin-editor.js?v=43"></script>
+</body>
+</html>
