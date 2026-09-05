@@ -5,11 +5,9 @@
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
   </url>
-  <!-- /work.html temporarily removed while the page is hidden — re-add when it's public again
   <url>
     <loc>https://studiostem.kr/work.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-  -->
 </urlset>

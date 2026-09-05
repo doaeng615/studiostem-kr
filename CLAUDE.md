@@ -6,17 +6,6 @@
 
 Studio Stem 대표 (1인 브랜드 디자이너). 코딩 비전공, 터미널/git 명령어를 잘 모름 — 매번 아주 자세하고 쉽게, 단계별로 설명 필요. 항상 한글로 답변할 것.
 
-## ⚠️ 현재 WORK 페이지 임시 비공개 상태 (2026-09-03부터)
-
-사용자 요청으로 **WORK 탭/페이지를 당분간 숨겨둔 상태**임:
-- `index.html`, `work.html`, `work-post.html`의 상단 nav + 모바일 메뉴에서 WORK 링크를 HTML 주석으로 감싸서 비활성화 (`<!-- WORK tab temporarily hidden -->` 주석 찾으면 됨)
-- `work.html`, `work-post.html`에 `<meta name="robots" content="noindex, nofollow">` 추가 (검색 노출 방지)
-- `sitemap.xml`에서 `/work.html` 항목 주석 처리
-- **관리자 페이지(`/admin/`)는 그대로 정상 작동** — 포트폴리오 업로드/수정/삭제 가능, 로그인도 정상
-- 페이지 자체는 삭제 안 됐고 URL 직접 접속은 여전히 가능 (완전 차단 아님, 발견 경로만 제거)
-
-**사용자가 "워크페이지 다시 보이게 해줘" 하면**: 위 3곳의 주석(`<!-- WORK tab temporarily hidden -->`)을 해제하고, `work.html`/`work-post.html`의 noindex 메타 태그 제거하고, sitemap.xml 주석 해제 후 커밋+push. Google/Naver에 재색인 요청도 다시 안내할 것.
-
 ## 배포 상태
 
 - **실사이트**: https://studiostem.kr — 정상 서비스 중, HTTPS 인증서 정상
@@ -81,7 +70,7 @@ robots.txt, sitemap.xml, CNAME
 
 ## 최근 작업 이력 (최신순)
 
-- WORK 탭/페이지 임시 비공개 처리 (위 섹션 참고)
+- WORK 탭/페이지를 잠시 숨겼다가 바로 다시 공개함 (nav 링크, noindex, sitemap 전부 원상복구됨 — 더 이상 숨김 상태 아님)
 - 포트폴리오 카드를 피그마 Project Card 컴포넌트 스펙에 정확히 맞춤, 본문 이미지 radius 0
 - PDF 블록 기능 전체 제거, 이미지 업로드 PNG/JPG/GIF만 허용, 블록 간격 규칙 적용
 - Supabase 기반 포트폴리오 CMS 구축: work.html/work-post.html 동적 렌더링 + 관리자 로그인/대시보드/에디터
@@ -94,4 +83,4 @@ robots.txt, sitemap.xml, CNAME
 
 ## 다음에 이어서 할 만한 것 (미정, 사용자에게 확인 필요)
 
-- WORK 페이지 언제 다시 공개할지는 사용자 지시 대기 중
+- 별다른 예정 작업 없음. 사용자가 요청하는 대로 진행.
